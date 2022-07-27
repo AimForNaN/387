@@ -16,7 +16,7 @@ export const useObjectStore = defineStore({
 			var img = new Img();
 			img.className = 'image';
 			img.name = 'Image';
-			div.id = uuid;
+			img.id = uuid;
 
 			var {style} = img;
 			style.left = 0;
