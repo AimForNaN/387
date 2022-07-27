@@ -1,13 +1,13 @@
 <script setup>
     import { RouterLink } from 'vue-router';
     import Canvas from './../components/Canvas.vue';
-    import Objects from './../components/Objects.vue';
+    import Panel from './../components/Panel.vue';
     import Timeline from './../components/Timeline.vue';
 </script>
 
 <template>
     <div id="document">
-        <Objects class="row-span-2"></Objects>
+        <Panel class="row-span-2"></Panel>
         <Canvas></Canvas>
         <Timeline></Timeline>
     </div>
