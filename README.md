@@ -1,6 +1,6 @@
 # 387
 
-387 is an animator for the web. 87 is the ascii code for W. The 87 * 3 = WWW.
+387 is an animator for the web. 87 is the ascii code for W. Therefore, 87 * 3 = WWW.
 
 ## Recommended IDE Setup
 
