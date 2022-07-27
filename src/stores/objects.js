@@ -14,7 +14,7 @@ export const useObjectStore = defineStore({
 			var {uuid} = this;
 
 			var img = new Img();
-			img.classList.add('image');
+			img.className = 'image';
 			img.name = 'Image';
 			div.id = uuid;
 
@@ -28,7 +28,7 @@ export const useObjectStore = defineStore({
 			var {uuid} = this;
 
 			var div = document.createElement('div');
-			div.classList.add('rect');
+			div.className = 'rect';
 			div.name = 'Rect';
 			div.id = uuid;
 
@@ -41,6 +41,7 @@ export const useObjectStore = defineStore({
 
 			this.Objects.set(uuid, div);
 		},
+		updateZIndices() {},
 	},
 	getters: {
 		uuid(state) {

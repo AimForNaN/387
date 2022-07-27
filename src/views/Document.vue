@@ -1,14 +1,14 @@
 <script setup>
     import { RouterLink } from 'vue-router';
     import Canvas from './../components/Canvas.vue';
-    import Objects from './../components/Objects.vue';
+    import Tools from './../components/Tools.vue';
     import Properties from './../components/Properties.vue';
     import Timeline from './../components/Timeline.vue';
 </script>
 
 <template>
     <div id="document">
-        <Objects></Objects>
+        <Tools></Tools>
         <Canvas></Canvas>
         <Properties></Properties>
         <Timeline class="col-span-3"></Timeline>
