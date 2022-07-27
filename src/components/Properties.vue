@@ -8,6 +8,6 @@
 
 <style lang="less">
     #properties {
-        @apply bg-white border-t flex flex-col;
+        @apply flex flex-col;
     }
 </style>

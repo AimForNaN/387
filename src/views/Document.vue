@@ -1,17 +1,15 @@
 <script setup>
     import { RouterLink } from 'vue-router';
     import Canvas from './../components/Canvas.vue';
-    import Tools from './../components/Tools.vue';
-    import Properties from './../components/Properties.vue';
+    import Objects from './../components/Objects.vue';
     import Timeline from './../components/Timeline.vue';
 </script>
 
 <template>
     <div id="document">
-        <Tools></Tools>
+        <Objects class="row-span-2"></Objects>
         <Canvas></Canvas>
-        <Properties></Properties>
-        <Timeline class="col-span-3"></Timeline>
+        <Timeline></Timeline>
     </div>
 </template>
 
@@ -26,22 +24,21 @@
 
     @screen sm {
         #document {
-            grid-template-columns: 1fr 1.75fr 1fr;
-            grid-template-rows: 1fr 0.45fr;
+            grid-template-columns: 1fr 2fr;
+            grid-template-rows: 2fr 1fr;
         }
     }
 
-    @screen xl {
+    @screen lg {
         #document {
-            grid-template-columns: 0.75fr 1.75fr 0.75fr;
-            grid-template-rows: 1fr 0.45fr;
+            grid-template-columns: 1fr 3fr;
         }
     }
 
     @screen 2xl {
         #document {
-            grid-template-columns: 0.5fr 2fr 0.5fr;
-            grid-template-rows: 1fr 0.45fr;
+            grid-template-columns: 1fr 5fr;
+            grid-template-rows: 3fr 1fr;
         }
     }
 </style>

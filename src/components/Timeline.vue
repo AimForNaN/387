@@ -3,11 +3,13 @@
 
 <template>
     <div id="timeline">
+        <div class="toolbar">
+        </div>
     </div>
 </template>
 
 <style lang="less">
     #timeline {
-        @apply bg-white border-t flex flex-col;
+        @apply bg-gray-700 flex flex-col;
     }
 </style>
