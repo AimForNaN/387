@@ -21,6 +21,7 @@ export const useObjectStore = defineStore({
 			var {style} = img;
 			style.left = 0;
 			style.top = 0;
+			style.zIndex = this.Objects.size;
 
 			this.Objects.set(uuid, img);
 		},
@@ -38,6 +39,7 @@ export const useObjectStore = defineStore({
 			style.top = 0;
 			style.height = 100;
 			style.width  = 100;
+			style.zIndex = this.Objects.size;
 
 			this.Objects.set(uuid, div);
 		},
