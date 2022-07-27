@@ -2,7 +2,7 @@ import { shallowReactive } from 'vue';
 import {
 	defineStore
 } from 'pinia';
-import { v5 as uuidv5 } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 
 export const useObjectStore = defineStore({
 	id: 'objects',
@@ -46,10 +46,13 @@ export const useObjectStore = defineStore({
 		updateZIndices() {},
 	},
 	getters: {
+		ObjectList(state) {
+			return Array.from(state.Objects.values());
+		},
 		uuid(state) {
-			var uuid = uuidv5();
+			var uuid = uuidv4();
 			while (state.Objects.has(uuid)) {
-				uuid = uuidv5();
+				uuid = uuidv4();
 			}
 			return uuid;
 		},
