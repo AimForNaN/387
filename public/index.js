@@ -103,7 +103,7 @@ const createWindow = () => {
 	});
 
 	// and load the index.html of the app.
-	mainWindow.loadURL('http://localhost:5173/');
+	mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
 	// Open the DevTools.
 	mainWindow.webContents.openDevTools();
@@ -119,7 +119,7 @@ const createWindow = () => {
 		// );
 
 		menu.popup();
-	})
+	});
 };
 
 // This method will be called when Electron has finished
