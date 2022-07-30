@@ -25,7 +25,7 @@ export const useObjectStore = defineStore({
 			img.id = uuid;
 
 			var {style} = img;
-			style.position = 'relative';
+			style.position = 'absolute';
 			style.left = '0px';
 			style.top = '0px';
 			style.zIndex = this.Objects.size;
@@ -49,7 +49,7 @@ export const useObjectStore = defineStore({
 			var {style} = div;
 			style.background = 'black';
 			style.display = 'inline-block';
-			style.position = 'relative';
+			style.position = 'absolute';
 			style.left = '0px';
 			style.top = '0px';
 			style.height = '100px';
