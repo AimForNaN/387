@@ -11,7 +11,6 @@
     });
 
     objects.$subscribe((mutation, state) => {
-        console.log(mutation);
         var {events} = mutation;
         var {key, newValue, oldValue, type} = events;
         if (newValue instanceof HTMLElement || oldValue instanceof HTMLElement) {
@@ -21,18 +20,28 @@
                     break;
                 }
                 case 'delete': {
-                    // var obj = frame.value.contentWindow.document.querySelector(`[id="${key}"]`);
-                    // console.log(obj, oldValue, obj == oldValue);
                     oldValue.parentNode.removeChild(oldValue);
                     break;
+                }
+                default: {
+                    console.log(mutation);
                 }
             }
         }
     });
 
-    function updateStyles(e) {
+    function inject(e) {
         var {document} = e.target.contentWindow;
-        document.body.style.margin = '0px';
+
+        var css = document.createElement('link');
+        css.href = '/inject.css';
+        css.rel = 'stylesheet';
+        document.head.appendChild(css);
+
+        var js = document.createElement('script');
+        js.src = '/inject.js';
+        js.defer = true;
+        document.head.appendChild(js);
     }
 </script>
 
@@ -45,7 +54,7 @@
             <input type="number" step="100" v-model="state.Height">
         </div>
         <div class="wrapper">
-            <iframe :height="state.Height" :width="state.Width" sandbox="allow-same-origin" ref="frame" @load="updateStyles"></iframe>
+            <iframe :height="state.Height" :width="state.Width" sandbox="allow-same-origin allow-scripts" ref="frame" @load="inject"></iframe>
         </div>
     </div>
 </template>
