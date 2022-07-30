@@ -92,7 +92,8 @@
         }
 
         label {
-            @apply gap-3 grid grid-cols-2 items-center;
+            @apply gap-3 grid items-center;
+            grid-template-columns: 1fr 2fr;
 
             span {
                 @apply text-right;
