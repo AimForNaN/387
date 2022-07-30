@@ -9,6 +9,9 @@
 
 <template>
     <div id="panel">
+        <header>
+            three eight seven
+        </header>
         <div class="tools">
             <Button class="button" @click="objects.addRect()">Add Rect</Button>
             <Button class="button" @click="objects.addImage()">Add Image</Button>
@@ -21,8 +24,12 @@
     #panel {
         @apply bg-white flex flex-col overflow-y-auto p-8 space-y-8;
 
-        Button {
+        button {
             @apply w-full;
+        }
+
+        > header {
+            @apply font-serif italic text-center text-3xl;
         }
 
         .tools {
