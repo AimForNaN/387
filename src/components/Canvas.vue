@@ -29,20 +29,6 @@
             }
         }
     });
-
-    function inject(e) {
-        var {document} = e.target.contentWindow;
-
-        var css = document.createElement('link');
-        css.href = '/inject.css';
-        css.rel = 'stylesheet';
-        document.head.appendChild(css);
-
-        var js = document.createElement('script');
-        js.src = '/inject.js';
-        js.defer = true;
-        document.head.appendChild(js);
-    }
 </script>
 
 <template>
@@ -54,7 +40,7 @@
             <input type="number" step="100" v-model="state.Height">
         </div>
         <div class="wrapper">
-            <iframe :height="state.Height" :width="state.Width" sandbox="allow-same-origin allow-scripts" ref="frame" @load="inject"></iframe>
+            <iframe src="/inject.html" :height="state.Height" :width="state.Width" sandbox="allow-same-origin allow-scripts" ref="frame"></iframe>
         </div>
     </div>
 </template>
