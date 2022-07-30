@@ -48,6 +48,7 @@ export const useObjectStore = defineStore({
 
 			var {style} = div;
 			style.backgroundColor = 'black';
+			style.display = 'inline-block';
 			style.position = 'relative';
 			style.left = '0px';
 			style.top = '0px';
