@@ -47,7 +47,7 @@ export const useObjectStore = defineStore({
 			div.id = uuid;
 
 			var {style} = div;
-			style.backgroundColor = 'black';
+			style.background = 'black';
 			style.display = 'inline-block';
 			style.position = 'relative';
 			style.left = '0px';

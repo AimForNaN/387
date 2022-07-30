@@ -35,44 +35,48 @@
                 {{name}}
             </header>
             <label>
-                <b>Name</b>
+                <span>Name</span>
                 <input type="text" v-model="name">
             </label>
             <label>
-                <b>Background Color</b>
-                <input type="text" v-model="object.style.backgroundColor">
+                <span>Background</span>
+                <input type="text" v-model="object.style.background">
             </label>
             <label v-if="isDivElement">
-                <b>Border</b>
+                <span>Border</span>
                 <input type="text" v-model="object.style.border">
             </label>
             <label v-if="isDivElement">
-                <b>Border Radius</b>
+                <span>Border Radius</span>
                 <input type="text" v-model="object.style.borderRadius">
             </label>
             <label>
-                <b>Width</b>
+                <span>Width</span>
                 <input type="text" v-model="object.style.width">
             </label>
             <label>
-                <b>Height</b>
+                <span>Height</span>
                 <input type="text" v-model="object.style.height">
             </label>
             <label>
-                <b>Left</b>
+                <span>Left</span>
                 <input type="text" v-model="object.style.left">
             </label>
             <label>
-                <b>Top</b>
+                <span>Top</span>
                 <input type="text" v-model="object.style.top">
             </label>
             <label v-if="isDivElement">
-                <b>Padding</b>
+                <span>Padding</span>
                 <input type="text" v-model="object.style.padding">
             </label>
             <label v-if="isDivElement">
-                <b>Text</b>
-                <textarea class="h-24" v-model="object.textContent"></textarea>
+                <span>Text Color</span>
+                <input type="text" v-model="object.style.color">
+            </label>
+            <label v-if="isDivElement">
+                <span class="self-start">Text</span>
+                <textarea class="w-full" v-model="object.textContent"></textarea>
             </label>
         </template>
         <template v-else></template>
@@ -84,11 +88,15 @@
         @apply flex flex-col space-y-4;
 
         header {
-            @apply text-3xl;
+            @apply text-3xl text-center;
         }
 
         label {
-            @apply flex flex-col self-stretch;
+            @apply gap-3 grid grid-cols-2 items-center;
+
+            span {
+                @apply text-right;
+            }
         }
     }
 </style>

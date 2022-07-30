@@ -8,7 +8,7 @@
 </script>
 
 <template>
-    <div id="objects">
+    <div id="panel">
         <div class="tools">
             <Button class="button" @click="objects.addRect()">Add Rect</Button>
             <Button class="button" @click="objects.addImage()">Add Image</Button>
@@ -18,15 +18,15 @@
 </template>
 
 <style lang="less">
-    #objects {
-        @apply bg-stone-100 flex flex-col overflow-y-auto p-8 space-y-8;
-
-        > * {
-            @apply items-center space-y-2;
-        }
+    #panel {
+        @apply bg-white flex flex-col overflow-y-auto p-8 space-y-8;
 
         Button {
             @apply w-full;
+        }
+
+        .tools {
+            @apply space-y-2;
         }
     }
 </style>
