@@ -96,7 +96,7 @@
             grid-template-columns: 1fr 2fr;
 
             span {
-                @apply text-right;
+                @apply text-xs text-right;
             }
         }
     }
