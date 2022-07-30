@@ -43,21 +43,21 @@
             <!-- <Button icon="arrow-left-bold-box" @mousedown="prev"></Button>
             <Button icon="arrow-right-bold-box" @mousedown="next"></Button> -->
         </div>
-        <div class="objects">
-            <div class="left">
-                <div class="object" :class="{ active: obj == objects.ActiveObject }" @click="objects.setActiveObject(obj)" v-for="obj in objects.ObjectList"  :key="obj.id">
-                    <div class="flex-1">{{obj.name}}</div>
-                    <div class="actions">
-                        <Icon class="action" icon="trash-can" @click.stop="objects.removeObject(obj)"></Icon>
-                        <Icon class="action" icon="arrow-up-bold"></Icon>
-                        <Icon class="action" icon="arrow-down-bold"></Icon>
-                        <Icon class="action" icon="plus-thick"></Icon>
+        <div class="wrapper">
+            <div class="tracker" :style="{ marginLeft: state.Position + '%' }"></div>
+            <div class="objects">
+                <template v-for="obj in objects.ObjectList">
+                    <div class="object" :class="{ active: obj == objects.ActiveObject }" @click="objects.setActiveObject(obj)">
+                        <div class="flex-1">{{obj.name}}</div>
+                        <div class="actions">
+                            <Icon class="action" icon="trash-can" @click.stop="objects.removeObject(obj)"></Icon>
+                            <Icon class="action" icon="arrow-up-bold"></Icon>
+                            <Icon class="action" icon="arrow-down-bold"></Icon>
+                            <Icon class="action" icon="plus-thick"></Icon>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="right" :style="{ width: (duration ? duration / 10 : 0) + 'px' }">
-                <div class="tracker" :style="{ marginLeft: state.Position + '%' }"></div>
-                <div class="object" v-for="obj in objects.ObjectList" :key="obj.id"></div>
+                    <div class="nodes"></div>
+                </template>
             </div>
         </div>
     </div>
@@ -72,32 +72,21 @@
         }
 
         .objects {
-            @apply flex overflow-auto text-white;
+            @apply grid overflow-auto text-white;
+            grid-template-columns: 320px auto;
 
-            .left {
-                @apply flex flex-col w-80;
+            .nodes {
+                @apply border-b border-gray-600 flex-shrink-0 h-14 p-2;
+            }
 
-                .object {
-                    @apply border-b border-r border-b-gray-600 border-r-gray-400 cursor-pointer divide-gray-500 flex flex-shrink-0 h-14 items-center p-2 hover:bg-gray-600;
+            .object {
+                @apply border-b border-r border-b-gray-600 border-r-gray-400 cursor-pointer divide-gray-500 flex flex-shrink-0 h-14 items-center p-2 hover:bg-gray-600;
 
-                    .actions {
-                        .action {
-                            @apply p-2 text-gray-400 hover:text-white;
-                        }
+                .actions {
+                    .action {
+                        @apply p-2 text-gray-400 hover:text-white;
                     }
                 }
-            }
-
-            .right {
-                @apply border-gray-400 border-r flex flex-col relative;
-
-                .object {
-                    @apply border-b border-gray-600 flex-shrink-0 h-14 p-2;
-                }
-            }
-
-            .tracker {
-                @apply bg-white fixed h-full w-px;
             }
         }
 
@@ -107,6 +96,15 @@
             > * {
                 @apply cursor-pointer px-3 py-2 hover:bg-gray-600;
             }
+        }
+
+        .tracker {
+            @apply bg-white fixed h-full w-px;
+            transform: translateX(320px);
+        }
+
+        .wrapper {
+            @apply flex flex-col;
         }
     }
 </style>
