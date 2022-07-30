@@ -38,7 +38,7 @@
     @screen 2xl {
         #document {
             grid-template-columns: 1fr 5fr;
-            grid-template-rows: 3fr 1fr;
+            grid-template-rows: 2.25fr 1fr;
         }
     }
 </style>

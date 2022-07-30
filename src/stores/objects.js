@@ -2,12 +2,18 @@ import { shallowReactive } from 'vue';
 import {
 	defineStore
 } from 'pinia';
+
+import anime from 'animejs/lib/anime.es.js';
 import { v4 as uuidv4 } from 'uuid';
 
 export const useObjectStore = defineStore({
 	id: 'objects',
 	state: () => ({
+		ActiveObject: null,
 		Objects: new Map(),
+		Timeline: anime.timeline({
+			autoplay: false,
+		}),
 	}),
 	actions: {
 		addImage() {
@@ -19,11 +25,18 @@ export const useObjectStore = defineStore({
 			img.id = uuid;
 
 			var {style} = img;
-			style.left = 0;
-			style.top = 0;
+			style.position = 'relative';
+			style.left = '0px';
+			style.top = '0px';
 			style.zIndex = this.Objects.size;
 
 			this.Objects.set(uuid, img);
+		},
+		addNode(obj) {
+			this.Timeline.add({
+				targets: `[id="${obj.id}"]`,
+				duration: 1000,
+			});
 		},
 		addRect() {
 			var {uuid} = this;
@@ -35,15 +48,29 @@ export const useObjectStore = defineStore({
 
 			var {style} = div;
 			style.backgroundColor = 'black';
-			style.left = 0;
-			style.top = 0;
-			style.height = 100;
-			style.width  = 100;
+			style.position = 'relative';
+			style.left = '0px';
+			style.top = '0px';
+			style.height = '100px';
+			style.width  = '100px';
 			style.zIndex = this.Objects.size;
 
 			this.Objects.set(uuid, div);
 		},
-		updateZIndices() {},
+		moveUp(obj) {},
+		removeObject(obj) {
+			if (this.ActiveObject && this.ActiveObject.id == obj.id) {
+				this.ActiveObject = null;
+			}
+			this.Objects.delete(obj.id);
+		},
+		setActiveObject(obj) {
+			if (this.Objects.has(obj.id)) {
+				this.ActiveObject = obj;
+			} else {
+				this.ActiveObject = null;
+			}
+		},
 	},
 	getters: {
 		ObjectList(state) {

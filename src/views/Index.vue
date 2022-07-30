@@ -1,5 +1,6 @@
 <script setup>
     import { RouterLink } from 'vue-router';
+    import Button from './../components/Button.vue';
 </script>
 
 <template>
@@ -13,7 +14,7 @@
             </div>
             <div class="space-y-2">
                 <RouterLink class="button" :to="{ name: 'doc' }">New document</RouterLink>
-                <button class="button">Open document</button>
+                <Button class="button">Open document</Button>
             </div>
         </div>
     </div>

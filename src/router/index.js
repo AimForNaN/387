@@ -10,16 +10,10 @@ const router = createRouter({
 	history: createWebHistory(
 		import.meta.env.BASE_URL),
 	routes: [{
-			path: '/',
-			name: 'home',
-			component: Index,
-		},
-		{
-			path: '/',
-			name: 'doc',
-			component: Document,
-		},
-	],
+		path: '/',
+		name: 'home',
+		component: Document,
+	}, ],
 });
 
 export default router;

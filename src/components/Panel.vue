@@ -1,5 +1,7 @@
 <script setup>
     import { useObjectStore } from './../stores/objects.js';
+
+    import Button from './Button.vue';
     import Properties from './Properties.vue';
 
     const objects = useObjectStore();
@@ -8,23 +10,22 @@
 <template>
     <div id="objects">
         <div class="tools">
-            <button class="button">Add Text</button>
-            <button class="button" @click="objects.addRect()">Add Rect</button>
-            <button class="button" @click="objects.addImage()">Add Image</button>
+            <Button class="button" @click="objects.addRect()">Add Rect</Button>
+            <Button class="button" @click="objects.addImage()">Add Image</Button>
         </div>
-        <Properties class="flex-1"></Properties>
+        <Properties class="flex-1" :object="objects.ActiveObject"></Properties>
     </div>
 </template>
 
 <style lang="less">
     #objects {
-        @apply bg-stone-100 flex flex-col p-8 space-y-8;
+        @apply bg-stone-100 flex flex-col overflow-y-auto p-8 space-y-8;
 
         > * {
             @apply items-center space-y-2;
         }
 
-        button {
+        Button {
             @apply w-full;
         }
     }
