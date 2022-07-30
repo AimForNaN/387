@@ -5,6 +5,14 @@
         <title></title>
         <link rel="stylesheet" href="/inject.css">
         <script src="/inject.js" type="module"></script>
+        <script type="text/javascript">
+            function addElement(el) {
+                document.body.appendChild(el);
+            }
+            function removeElement(el) {
+                el.parentNode.removeChild(el);
+            }
+        </script>
     </head>
     <body></body>
 </html>

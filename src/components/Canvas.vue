@@ -13,14 +13,16 @@
     objects.$subscribe((mutation, state) => {
         var {events} = mutation;
         var {key, newValue, oldValue, type} = events;
-        if (newValue instanceof HTMLElement || oldValue instanceof HTMLElement) {
+        var el = newValue ?? oldValue;
+        if (el instanceof HTMLElement) {
+            let w = frame.value.contentWindow;
             switch (type) {
                 case 'add': {
-                    frame.value.contentWindow.document.body.appendChild(newValue);
+                    w.addElement(el)
                     break;
                 }
                 case 'delete': {
-                    oldValue.parentNode.removeChild(oldValue);
+                    w.removeElement(el);
                     break;
                 }
                 default: {

@@ -64,6 +64,7 @@ export const useObjectStore = defineStore({
 				this.ActiveObject = null;
 			}
 			this.Objects.delete(obj.id);
+			this.Timeline.remove(obj);
 		},
 		setActiveObject(obj) {
 			if (this.Objects.has(obj.id)) {
