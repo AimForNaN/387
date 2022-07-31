@@ -1,4 +1,4 @@
-import { shallowReactive } from 'vue';
+import { shallowReactive, unref } from 'vue';
 import {
 	defineStore
 } from 'pinia';
@@ -6,14 +6,14 @@ import {
 import anime from 'animejs/lib/anime.es.js';
 import { v4 as uuidv4 } from 'uuid';
 
+import Node from './../lib/Node.js';
+
 export const useObjectStore = defineStore({
 	id: 'objects',
 	state: () => ({
 		ActiveObject: null,
 		Objects: new Map(),
-		Timeline: anime.timeline({
-			autoplay: false,
-		}),
+		Nodes: new Map(),
 	}),
 	actions: {
 		addImage() {
@@ -33,13 +33,15 @@ export const useObjectStore = defineStore({
 			this.Objects.set(uuid, img);
 		},
 		addNode(obj) {
-			var {Timeline} = this;
-			Timeline.add({
-				targets: obj,
+			var {Nodes, Timeline} = this;
+			if (!Nodes.has(obj.id)) {
+				Nodes.set(obj.id, []);
+			}
+			var arr = Nodes.get(obj.id);
+			arr.push(new Node({
 				duration: 1000,
-			});
-			this.Timeline = null;
-			this.Timeline = Timeline;
+				offset: Timeline.duration,
+			}));
 		},
 		addRect() {
 			var {uuid} = this;
@@ -62,24 +64,20 @@ export const useObjectStore = defineStore({
 			this.Objects.set(uuid, div);
 		},
 		getNodes(obj) {
-			return this.Timeline.children.filter((node) => {
-				return node.animatables.find((item) => {
-					return obj == item.target;
-				});
-			});
+			return this.Nodes.get(obj.id) ?? [];
 		},
 		moveUp(obj) {},
 		removeObject(obj) {
 			if (this.ActiveObject && this.ActiveObject.id == obj.id) {
 				this.ActiveObject = null;
 			}
+			this.Nodes.delete(obj.id);
 			this.Objects.delete(obj.id);
-			this.Timeline.remove(obj);
 		},
 		setActiveObject(obj) {
 			if (this.Objects.has(obj.id)) {
 				this.ActiveObject = obj;
-			} else if (this.Timeline.children.includes(obj)) {
+			} else if (obj instanceof Node) {
 				this.ActiveObject = obj;
 			} else {
 				this.ActiveObject = null;
@@ -89,6 +87,25 @@ export const useObjectStore = defineStore({
 	getters: {
 		ObjectList(state) {
 			return Array.from(state.Objects.values());
+		},
+		Timeline(state) {
+			var t = anime.timeline({
+				autoplay: false,
+			});
+			Array.from(state.Nodes.entries()).forEach(([target, nodes]) => {
+				nodes.forEach((params) => {
+					var {
+						offset,
+						...other
+					} = unref(params);
+					var targets = state.Objects.get(target);
+					t.add({
+						targets,
+						...other,
+					}, offset);
+				});
+			});
+			return t;
 		},
 		uuid(state) {
 			var uuid = uuidv4();

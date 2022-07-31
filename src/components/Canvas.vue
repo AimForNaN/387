@@ -52,7 +52,7 @@
         @apply flex flex-col overflow-hidden;
 
         iframe {
-            @apply bg-white m-auto rounded-sm shadow-lg;
+            @apply bg-white m-auto flex-shrink-0 rounded-sm shadow-lg;
         }
 
         .toolbar {

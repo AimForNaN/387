@@ -79,7 +79,8 @@
                 <textarea class="w-full" v-model="object.textContent"></textarea>
             </label>
         </template>
-        <template v-else></template>
+        <template v-else>
+        </template>
     </div>
 </template>
 
@@ -93,7 +94,6 @@
 
         label {
             @apply gap-3 grid items-center;
-            grid-template-columns: 1fr 2fr;
 
             span {
                 @apply text-xs text-right;
