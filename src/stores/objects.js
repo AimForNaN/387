@@ -101,6 +101,7 @@ export const useObjectStore = defineStore({
 		Timeline(state) {
 			var t = anime.timeline({
 				autoplay: false,
+				easing: 'linear',
 			});
 			Array.from(state.Nodes.entries()).forEach(([target, nodes]) => {
 				nodes.forEach((params) => {

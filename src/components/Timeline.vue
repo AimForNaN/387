@@ -45,6 +45,7 @@
         state.Playing = false;
     }
     function play() {
+        state.Timeline.seek(0);
         state.Timeline = objects.Timeline;
         state.Timeline.update = update;
         state.Timeline.play();
