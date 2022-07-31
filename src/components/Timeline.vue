@@ -4,6 +4,7 @@
     import Button from './Button.vue';
     import Icon from './Icon.vue';
     import TimelineObject from './TimelineObject.vue';
+    import TimelineTracker from './TimelineTracker.vue';
 
     const objects = useObjectStore();
     const timeline = objects.Timeline;
@@ -64,7 +65,7 @@
             <!-- <Button icon="arrow-left-bold-box" @mousedown="prev"></Button>
             <Button icon="arrow-right-bold-box" @mousedown="next"></Button> -->
         </div>
-        <!-- <div class="tracker" :style="{ marginLeft: state.Position + '%' }"></div> -->
+        <TimelineTracker></TimelineTracker>
         <div class="objects">
             <TimelineObject :active="objects.ActiveObject" :nodes="objects.getNodes(obj)" :key="obj.id" :object="obj" :scale-factor="state.ScaleFactor" :scale-multiplier="state.ScaleMultiplier" v-for="obj in objects.ObjectList" @action="onAction"></TimelineObject>
         </div>
@@ -79,7 +80,7 @@
             @apply flex flex-1 flex-col overflow-auto text-white;
         }
 
-        .timeline-object {
+        .timeline-object, .timeline-tracker {
             @apply border-b border-b-gray-600;
         }
 
@@ -89,11 +90,6 @@
             > * {
                 @apply cursor-pointer px-3 py-2 hover:bg-gray-600;
             }
-        }
-
-        .tracker {
-            @apply absolute bg-white h-full w-px;
-            transform: translateX(320px);
         }
     }
 </style>
