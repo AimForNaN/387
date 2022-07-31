@@ -20,6 +20,10 @@
         #canvas {
             @apply h-full w-full;
         }
+
+        #panel {
+            @apply border-r-4 border-gray-700;
+        }
     }
 
     @screen sm {

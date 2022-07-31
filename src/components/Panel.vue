@@ -29,7 +29,7 @@
         }
 
         > header {
-            @apply font-serif italic text-center text-3xl;
+            @apply font-serif italic text-center text-3xl text-gray-700;
         }
 
         .tools {

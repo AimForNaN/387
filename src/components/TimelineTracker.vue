@@ -19,13 +19,16 @@
     <div class="timeline-tracker">
         <div class="blank"></div>
         <div class="track">
+            <div class="board">
+                <div class="tracker"></div>
+            </div>
         </div>
     </div>
 </template>
 
 <style lang="less">
     .timeline-tracker {
-        @apply flex-shrink-0 grid;
+        @apply flex-shrink-0 grid relative;
         grid-template-columns: 320px auto;
 
         .blank {
@@ -33,7 +36,15 @@
         }
 
         .track {
-            @apply flex flex-col h-10 justify-between;
+            @apply flex;
+
+            .board {
+                @apply flex h-8 justify-between;
+            }
+        }
+
+        .tracker {
+            @apply absolute bg-white h-full w-px;
         }
     }
 </style>

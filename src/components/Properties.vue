@@ -92,7 +92,7 @@
         @apply flex flex-col space-y-4;
 
         header {
-            @apply text-3xl text-center;
+            @apply text-3xl text-center text-gray-700;
         }
 
         label {
