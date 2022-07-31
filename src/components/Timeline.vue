@@ -8,19 +8,16 @@
     const objects = useObjectStore();
     const timeline = objects.Timeline;
     const state = reactive({
-        Paused: timeline.paused,
-        Position: ~~timeline.progress,
+        Paused: true,
+        Position: 0,
         ScaleFactor: 100,
         ScaleMultiplier: 1,
+        Timeline: objects.Timeline,
     });
 
-    timeline.update = function (t) {
-        state.Paused = t.paused;
-        state.Position = t.progress;
-    }
 
     const duration = computed(() => {
-        return timeline.duration;
+        return state.Timeline.duration;
     });
 
     function next() {
@@ -43,13 +40,19 @@
         }
     }
     function pause() {
-        timeline.pause();
+        state.Timeline.pause();
     }
     function play() {
-        timeline.play();
+        state.Timeline = objects.Timeline;
+        state.Timeline.update = update;
+        state.Timeline.play();
     }
     function prev() {
         state.Position = Math.max(0, state.Position - 1);
+    }
+    function update(t) {
+        state.Paused = t.paused;
+        state.Position = t.progress;
     }
 </script>
 

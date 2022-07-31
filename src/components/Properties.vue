@@ -31,9 +31,7 @@
 <template>
     <div id="properties" v-if="object">
         <template v-if="isHtmlElement">
-            <header>
-                {{name}}
-            </header>
+            <header>{{name}}</header>
             <label>
                 <span>Name</span>
                 <input type="text" v-model="name">
@@ -80,6 +78,11 @@
             </label>
         </template>
         <template v-else>
+            <header>Node</header>
+            <label v-for="(v,k) in object">
+                <span>{{k}}</span>
+                <input type="text" v-model="object[k]">
+            </label>
         </template>
     </div>
 </template>
@@ -94,9 +97,10 @@
 
         label {
             @apply gap-3 grid items-center;
+            grid-template-columns: 1fr 2fr;
 
             span {
-                @apply text-xs text-right;
+                @apply capitalize text-xs text-right;
             }
         }
     }
