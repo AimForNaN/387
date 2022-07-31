@@ -121,6 +121,10 @@
             @apply gap-3 grid items-center;
             grid-template-columns: 1fr 2fr;
 
+            input, textarea {
+                @apply w-full;
+            }
+
             span {
                 @apply capitalize text-xs text-right;
             }

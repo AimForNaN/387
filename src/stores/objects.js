@@ -23,6 +23,7 @@ export const useObjectStore = defineStore({
 			img.className = 'image';
 			img.name = 'Image';
 			img.id = uuid;
+			img.onclick = this.setActiveObjectFromEvent;
 
 			var {style} = img;
 			style.position = 'absolute';
@@ -50,6 +51,7 @@ export const useObjectStore = defineStore({
 			div.className = 'rect';
 			div.name = 'Rect';
 			div.id = uuid;
+			div.onclick = this.setActiveObjectFromEvent;
 
 			var {style} = div;
 			style.background = 'black';
@@ -87,6 +89,9 @@ export const useObjectStore = defineStore({
 			} else {
 				this.ActiveObject = null;
 			}
+		},
+		setActiveObjectFromEvent(e) {
+			this.setActiveObject(e.target);
 		},
 	},
 	getters: {

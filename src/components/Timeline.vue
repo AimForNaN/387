@@ -14,7 +14,7 @@
         Position: 0,
         ScaleFactor: 100,
         ScaleMultiplier: 0.25,
-        Timeline: objects.Timeline,
+        Timeline: objects.Timeline, // Perhaps better as a shallowRef?
     });
 
     function next() {

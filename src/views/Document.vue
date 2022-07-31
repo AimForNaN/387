@@ -23,6 +23,7 @@
 
         #panel {
             @apply border-r-4 border-gray-700;
+            min-width: 320px;
         }
     }
 
