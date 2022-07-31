@@ -10,7 +10,7 @@
     const timeline = objects.Timeline;
     const state = reactive({
         Duration: 0,
-        Paused: true,
+        Playing: false,
         Position: 0,
         ScaleFactor: 100,
         ScaleMultiplier: 0.25,
@@ -40,26 +40,30 @@
     }
     function pause() {
         state.Timeline.pause();
+        state.Playing = false;
     }
     function play() {
         state.Timeline = objects.Timeline;
         state.Timeline.update = update;
         state.Timeline.play();
+        state.Playing = true;
     }
     function prev() {
         state.Position = Math.max(0, state.Position - 1);
     }
     function update(t) {
         state.Duration = t.duration;
-        state.Paused = t.progress == 100 || t.paused;
         state.Position = t.progress;
+        if (t.progress == 100) {
+            state.Playing = false;
+        }
     }
 </script>
 
 <template>
     <div id="timeline">
         <div class="toolbar">
-            <Button icon="play" @click="play" v-if="state.Paused"></Button>
+            <Button icon="play" @click="play" v-if="!state.Playing"></Button>
             <Button icon="pause" @click="pause" v-else></Button>
             <!-- <Button icon="arrow-left-bold-box" @mousedown="prev"></Button>
             <Button icon="arrow-right-bold-box" @mousedown="next"></Button> -->
