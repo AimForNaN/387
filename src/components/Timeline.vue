@@ -28,6 +28,8 @@
             }
             case 'add-node': {
                 objects.addNode(object);
+                state.Timeline = objects.Timeline;
+                update(state.Timeline);
                 break;
             }
             case 'remove-object': {
@@ -62,8 +64,8 @@
             <!-- <Button icon="arrow-left-bold-box" @mousedown="prev"></Button>
             <Button icon="arrow-right-bold-box" @mousedown="next"></Button> -->
         </div>
-        <TimelineTracker :duration="state.Duration" :position="state.Position" :scale-factor="state.ScaleFactor" :scale-multiplier="state.ScaleMultiplier"></TimelineTracker>
         <div class="objects">
+            <TimelineTracker :duration="state.Duration" :position="state.Position" :scale-factor="state.ScaleFactor" :scale-multiplier="state.ScaleMultiplier"></TimelineTracker>
             <TimelineObject :active="objects.ActiveObject" :nodes="objects.getNodes(obj)" :key="obj.id" :object="obj" :scale-factor="state.ScaleFactor" :scale-multiplier="state.ScaleMultiplier" v-for="obj in objects.ObjectList" @action="onAction"></TimelineObject>
         </div>
     </div>
