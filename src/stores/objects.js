@@ -33,10 +33,13 @@ export const useObjectStore = defineStore({
 			this.Objects.set(uuid, img);
 		},
 		addNode(obj) {
-			this.Timeline.add({
-				targets: `[id="${obj.id}"]`,
+			var {Timeline} = this;
+			Timeline.add({
+				targets: obj,
 				duration: 1000,
 			});
+			this.Timeline = null;
+			this.Timeline = Timeline;
 		},
 		addRect() {
 			var {uuid} = this;
@@ -58,6 +61,13 @@ export const useObjectStore = defineStore({
 
 			this.Objects.set(uuid, div);
 		},
+		getNodes(obj) {
+			return this.Timeline.children.filter((node) => {
+				return node.animatables.find((item) => {
+					return obj == item.target;
+				});
+			});
+		},
 		moveUp(obj) {},
 		removeObject(obj) {
 			if (this.ActiveObject && this.ActiveObject.id == obj.id) {
@@ -68,6 +78,8 @@ export const useObjectStore = defineStore({
 		},
 		setActiveObject(obj) {
 			if (this.Objects.has(obj.id)) {
+				this.ActiveObject = obj;
+			} else if (this.Timeline.children.includes(obj)) {
 				this.ActiveObject = obj;
 			} else {
 				this.ActiveObject = null;

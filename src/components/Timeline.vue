@@ -9,8 +9,9 @@
     const state = reactive({
         Paused: timeline.paused,
         Position: ~~timeline.progress,
+        ScaleFactor: 100,
+        ScaleMultiplier: 1,
     });
-    console.log(timeline);
 
     timeline.update = function (t) {
         state.Paused = t.paused;
@@ -21,6 +22,9 @@
         return timeline.duration;
     });
 
+    function calculate(n) {
+        return n ? n / (state.ScaleFactor * state.ScaleMultiplier) : 0;
+    }
     function next() {
         state.Position = Math.min(100, state.Position + 1);
     }
@@ -53,10 +57,14 @@
                             <Icon class="action" icon="trash-can" @click.stop="objects.removeObject(obj)"></Icon>
                             <Icon class="action" icon="arrow-up-bold"></Icon>
                             <Icon class="action" icon="arrow-down-bold"></Icon>
-                            <Icon class="action" icon="plus-thick"></Icon>
+                            <Icon class="action" icon="plus-thick" @click.stop="objects.addNode(obj)"></Icon>
                         </div>
                     </div>
-                    <div class="nodes"></div>
+                    <div class="nodes">
+                        <div class="node" v-for="n in objects.getNodes(obj)" :key="n.id">
+                            <div class="leaf" :style="{ marginLeft: calculate(n.timelineOffset) + '%', width: calculate(n.duration) + '%' }" @click="objects.setActiveObject(n)"></div>
+                        </div>
+                    </div>
                 </template>
             </div>
         </div>
@@ -72,15 +80,23 @@
         }
 
         .objects {
-            @apply grid overflow-auto text-white;
+            @apply flex-1 grid overflow-auto text-white;
             grid-template-columns: 320px auto;
 
             .nodes {
-                @apply border-b border-gray-600 flex-shrink-0 h-14 p-2;
+                @apply border-b border-gray-600 flex flex-col flex-shrink-0 py-2;
+
+                .node {
+                    @apply flex items-center h-12 justify-start;
+
+                    .leaf {
+                        @apply bg-sky-500 cursor-pointer h-10 rounded;
+                    }
+                }
             }
 
             .object {
-                @apply border-b border-r border-b-gray-600 border-r-gray-400 cursor-pointer divide-gray-500 flex flex-shrink-0 h-14 items-center p-2 hover:bg-gray-600;
+                @apply border-b border-r border-b-gray-600 border-r-gray-400 cursor-pointer divide-gray-500 flex flex-shrink-0 px-2 py-2 hover:bg-gray-600;
 
                 .actions {
                     .action {
@@ -99,12 +115,12 @@
         }
 
         .tracker {
-            @apply bg-white fixed h-full w-px;
+            @apply absolute bg-white h-full w-px;
             transform: translateX(320px);
         }
 
         .wrapper {
-            @apply flex flex-col;
+            @apply flex flex-1 flex-col overflow-hidden relative;
         }
     }
 </style>
