@@ -19,7 +19,7 @@ export const useObjectStore = defineStore({
 		addImage() {
 			var {uuid} = this;
 
-			var img = new Img();
+			var img = document.createElement('img');
 			img.className = 'image';
 			img.name = 'Image';
 			img.id = uuid;
