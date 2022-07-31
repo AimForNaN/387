@@ -1,4 +1,6 @@
 <script setup>
+    import { calculate } from './../lib/timeline.js';
+
     const props = defineProps({
         duration: {
             type: Number,
@@ -8,19 +10,23 @@
             type: Number,
             default: 0,
         },
+        scaleFactor: {
+            type: Number,
+            default: 100,
+        },
+        scaleMultiplier: {
+            type: Number,
+            default: 1,
+        },
     });
-
-    function calculate(n) {
-        return n ? n / (props.scaleFactor * props.scaleMultiplier) : 0;
-    }
 </script>
 
 <template>
     <div class="timeline-tracker">
-        <div class="blank"></div>
+        <div class="blank">{{props.duration}}</div>
         <div class="track">
-            <div class="board">
-                <div class="tracker"></div>
+            <div class="board" :style="{ width: calculate(props.duration, props.scaleFactor, props.scaleMultiplier) + 'px' }">
+                <div class="tracker" :style="{ marginLeft: props.position + '%' }"></div>
             </div>
         </div>
     </div>
@@ -28,7 +34,7 @@
 
 <style lang="less">
     .timeline-tracker {
-        @apply flex-shrink-0 grid relative;
+        @apply flex-shrink-0 grid;
         grid-template-columns: 320px auto;
 
         .blank {
@@ -39,7 +45,7 @@
             @apply flex;
 
             .board {
-                @apply flex h-8 justify-between;
+                @apply flex h-8 justify-between relative;
             }
         }
 

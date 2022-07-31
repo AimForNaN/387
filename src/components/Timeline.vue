@@ -9,16 +9,12 @@
     const objects = useObjectStore();
     const timeline = objects.Timeline;
     const state = reactive({
+        Duration: 0,
         Paused: true,
         Position: 0,
         ScaleFactor: 100,
-        ScaleMultiplier: 1,
+        ScaleMultiplier: 0.25,
         Timeline: objects.Timeline,
-    });
-
-
-    const duration = computed(() => {
-        return state.Timeline.duration;
     });
 
     function next() {
@@ -52,7 +48,8 @@
         state.Position = Math.max(0, state.Position - 1);
     }
     function update(t) {
-        state.Paused = t.paused;
+        state.Duration = t.duration;
+        state.Paused = t.progress == 100 || t.paused;
         state.Position = t.progress;
     }
 </script>
@@ -60,12 +57,12 @@
 <template>
     <div id="timeline">
         <div class="toolbar">
-            <Button icon="play" v-if="state.Paused"></Button>
-            <Button icon="pause" v-else></Button>
+            <Button icon="play" @click="play" v-if="state.Paused"></Button>
+            <Button icon="pause" @click="pause" v-else></Button>
             <!-- <Button icon="arrow-left-bold-box" @mousedown="prev"></Button>
             <Button icon="arrow-right-bold-box" @mousedown="next"></Button> -->
         </div>
-        <TimelineTracker></TimelineTracker>
+        <TimelineTracker :duration="state.Duration" :position="state.Position" :scale-factor="state.ScaleFactor" :scale-multiplier="state.ScaleMultiplier"></TimelineTracker>
         <div class="objects">
             <TimelineObject :active="objects.ActiveObject" :nodes="objects.getNodes(obj)" :key="obj.id" :object="obj" :scale-factor="state.ScaleFactor" :scale-multiplier="state.ScaleMultiplier" v-for="obj in objects.ObjectList" @action="onAction"></TimelineObject>
         </div>

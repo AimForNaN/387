@@ -20,6 +20,18 @@
             },
         };
     });
+    const text = customRef((track, trigger) => {
+        return {
+            get() {
+                track();
+                return props.object && props.object.textContent;
+            },
+            set(v) {
+                props.object.textContent = v;
+                trigger();
+            },
+        };
+    });
     const isDivElement = computed(() => {
         return props.object instanceof HTMLDivElement;
     });
@@ -69,13 +81,23 @@
                 <input type="text" v-model="object.style.padding">
             </label>
             <label v-if="isDivElement">
-                <span>Text Color</span>
-                <input type="text" v-model="object.style.color">
-            </label>
-            <label v-if="isDivElement">
                 <span class="self-start">Text</span>
-                <textarea class="w-full" v-model="object.textContent"></textarea>
+                <textarea class="w-full" v-model="text"></textarea>
             </label>
+            <template v-if="text">
+                <label v-if="isDivElement">
+                    <span>Text Color</span>
+                    <input type="text" v-model="object.style.color">
+                </label>
+                <label v-if="isDivElement">
+                    <span>Text Size</span>
+                    <input type="text" v-model="object.style.fontSize">
+                </label>
+                <label v-if="isDivElement">
+                    <span>Font</span>
+                    <input type="text" v-model="object.style.fontFamily">
+                </label>
+            </template>
         </template>
         <template v-else>
             <header>Node</header>

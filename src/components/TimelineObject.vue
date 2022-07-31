@@ -1,4 +1,5 @@
 <script setup>
+    import { calculate } from './../lib/timeline.js';
     import Icon from './Icon.vue';
 
     const $emit = defineEmits(['action']);
@@ -23,10 +24,6 @@
             default: 1,
         },
     });
-
-    function calculate(n) {
-        return n ? n / (props.scaleFactor * props.scaleMultiplier) : 0;
-    }
 </script>
 
 <template>
@@ -42,7 +39,7 @@
         </div>
         <div class="nodes">
             <div class="node" v-for="n in props.nodes" :key="n.id">
-                <div class="leaf" :class="{ active: props.active == n }" :style="{ marginLeft: calculate(n.offset) + '%', width: calculate(n.duration) + '%' }" @click="$emit('action', 'activate', n)"></div>
+                <div class="leaf" :class="{ active: props.active == n }" :style="{ marginLeft: calculate(n.offset, props.scaleFactor, props.scaleMultiplier) + 'px', width: calculate(n.duration, props.scaleFactor, props.scaleMultiplier) + 'px' }" @click="$emit('action', 'activate', n)"></div>
             </div>
         </div>
     </div>
