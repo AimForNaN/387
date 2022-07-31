@@ -1,5 +1,5 @@
 <script setup>
-    import { computed, reactive } from 'vue';
+    import { computed, reactive, watch } from 'vue';
     import { useObjectStore } from './../stores/objects.js';
     import Button from './Button.vue';
     import Icon from './Icon.vue';
@@ -15,6 +15,10 @@
         ScaleFactor: 100,
         ScaleMultiplier: 0.25,
         Timeline: objects.Timeline, // Perhaps better as a shallowRef?
+    });
+
+    watch(() => state.Playing, (v) => {
+        !v && state.Timeline.seek(0);
     });
 
     function next() {
@@ -40,12 +44,11 @@
             }
         }
     }
-    function pause() {
+    function stop() {
         state.Timeline.pause();
         state.Playing = false;
     }
     function play() {
-        state.Timeline.seek(0);
         state.Timeline = objects.Timeline;
         state.Timeline.update = update;
         state.Timeline.play();
@@ -67,7 +70,7 @@
     <div id="timeline">
         <div class="toolbar">
             <Button icon="play" @click="play" v-if="!state.Playing"></Button>
-            <Button icon="pause" @click="pause" v-else></Button>
+            <Button icon="stop" @click="stop" v-else></Button>
             <!-- <Button icon="arrow-left-bold-box" @mousedown="prev"></Button>
             <Button icon="arrow-right-bold-box" @mousedown="next"></Button> -->
         </div>
