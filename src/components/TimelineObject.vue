@@ -66,7 +66,7 @@
             @apply border-r border-r-gray-400 cursor-pointer flex items-baseline px-2 py-1 hover:bg-gray-600;
 
             &.active {
-                @apply ring-4 ring-sky-400 ring-inset;
+                @apply bg-gray-600 ring-4 ring-sky-400 ring-inset;
             }
         }
 
@@ -77,10 +77,10 @@
                 @apply flex;
 
                 .leaf {
-                    @apply bg-sky-500 cursor-pointer h-8 rounded shadow hover:bg-sky-400;
+                    @apply bg-sky-600 cursor-pointer h-8 rounded shadow hover:bg-sky-500;
 
                     &.active {
-                        @apply ring-4 ring-sky-200 ring-inset;
+                        @apply bg-sky-400 ring-4 ring-sky-200 ring-inset;
                     }
                 }
             }

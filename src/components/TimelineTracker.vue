@@ -43,11 +43,11 @@
 
 <style lang="less">
     .timeline-tracker {
-        @apply flex-shrink-0 grid;
+        @apply flex-shrink-0 grid text-white;
         grid-template-columns: 320px auto;
 
         .blank {
-            @apply border-r border-gray-500;
+            @apply border-r border-gray-400 flex items-center;
         }
 
         .tick {

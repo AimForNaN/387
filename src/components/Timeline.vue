@@ -34,6 +34,8 @@
             }
             case 'remove-object': {
                 objects.removeObject(object);
+                state.Timeline = objects.Timeline;
+                update(state.Timeline);
                 break;
             }
         }
@@ -52,8 +54,8 @@
         state.Position = Math.max(0, state.Position - 1);
     }
     function update(t) {
-        state.Duration = t.duration;
-        state.Position = t.progress;
+        state.Duration = ~~t.duration;
+        state.Position = ~~t.progress;
         if (t.progress == 100) {
             state.Playing = false;
         }
