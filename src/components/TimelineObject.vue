@@ -27,14 +27,14 @@
 </script>
 
 <template>
-    <div class="timeline-object" :title="props.object.id">
+    <div class="timeline-object">
         <div class="details" :class="{ active: props.active == props.object }" @click="$emit('action', 'activate', props.object)">
             <div class="timeline-object-name">{{props.object.name}}</div>
             <div class="actions">
                 <Icon class="action" icon="trash-can" @click.stop="$emit('action', 'remove-object', props.object)"></Icon>
                 <Icon class="action" icon="arrow-up-bold"></Icon>
                 <Icon class="action" icon="arrow-down-bold"></Icon>
-                <Icon class="action" icon="plus-thick" @click.stop="$emit('action', 'add-node', props.object)"></Icon>
+                <Icon class="action" icon="plus-thick" title="Add Node" @click.stop="$emit('action', 'add-node', props.object)"></Icon>
             </div>
         </div>
         <div class="nodes">
