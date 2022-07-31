@@ -64,11 +64,12 @@ export const useObjectStore = defineStore({
 			this.Objects.set(uuid, div);
 		},
 		getNodes(obj) {
-			return this.Nodes.get(obj.id) ?? [];
+			return (obj && this.Nodes.get(obj.id)) ?? [];
 		},
 		moveUp(obj) {},
 		removeObject(obj) {
-			if (this.ActiveObject && this.ActiveObject.id == obj.id) {
+			var nodes = this.getNodes(obj);
+			if (this.ActiveObject == obj || nodes.includes(this.ActiveObject)) {
 				this.ActiveObject = null;
 			}
 			this.Nodes.delete(obj.id);
