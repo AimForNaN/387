@@ -5,3 +5,7 @@ body {
 body > * {
     cursor: move;
 }
+
+.active {
+    box-shadow: 0 0 0 4px #e11d48;
+}

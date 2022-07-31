@@ -76,9 +76,13 @@ export const useObjectStore = defineStore({
 			this.Objects.delete(obj.id);
 		},
 		setActiveObject(obj) {
-			if (this.Objects.has(obj.id)) {
-				this.ActiveObject = obj;
-			} else if (obj instanceof Node) {
+			if (this.Objects.has(obj.id) || obj instanceof Node) {
+				if (this.ActiveObject instanceof HTMLElement) {
+					this.ActiveObject.classList.remove('active');
+				}
+				if (obj instanceof HTMLElement) {
+					obj.classList.add('active');
+				}
 				this.ActiveObject = obj;
 			} else {
 				this.ActiveObject = null;
