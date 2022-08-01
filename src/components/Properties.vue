@@ -28,10 +28,10 @@
         return {
             get() {
                 track();
-                return props.object && props.object.textContent;
+                return props.object && props.object.innerHTML;
             },
             set(v) {
-                props.object.textContent = v;
+                props.object.innerHTML = v;
                 trigger();
             },
         };
@@ -114,7 +114,7 @@
                 <input type="text" v-model="object.style.padding">
             </label>
             <label v-if="isDivElement">
-                <span class="self-start">Text</span>
+                <span class="self-start">HTML</span>
                 <textarea class="w-full" v-model="text"></textarea>
             </label>
             <template v-if="text">
