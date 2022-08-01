@@ -1,5 +1,5 @@
 export default class Node {
-    constructor(params) {
+    constructor(params = {}) {
         Object.assign(this, params);
     }
 }

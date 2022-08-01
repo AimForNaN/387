@@ -3,9 +3,10 @@ body {
 }
 
 body > * {
-    cursor: move;
+    cursor: pointer;
 }
 
 .active {
+    cursor: default;
     outline: 4px solid #E11D48;
 }

@@ -6,11 +6,23 @@
 
     const props = defineProps({
         active: null,
+        noActivation: {
+            type: Boolean,
+            default: false,
+        },
+        noDelete: {
+            type: Boolean,
+            default: false,
+        },
         nodes: {
             type: Array,
             default() {
                 return [];
             },
+        },
+        noOrder: {
+            type: Boolean,
+            default: false,
         },
         object: {
             required: true,
@@ -28,12 +40,12 @@
 
 <template>
     <div class="timeline-object">
-        <div class="details" :class="{ active: props.active == props.object }" @click="$emit('action', 'activate', props.object)">
+        <div class="details" :class="{ active: props.active == props.object, hover: !noActivation }" @click="!noActivation && $emit('action', 'activate', props.object)">
             <div class="timeline-object-name">{{props.object.name}}</div>
             <div class="actions">
-                <Icon class="action" icon="trash-can" @click.stop="$emit('action', 'remove-object', props.object)"></Icon>
-                <Icon class="action" icon="arrow-up-bold"></Icon>
-                <Icon class="action" icon="arrow-down-bold"></Icon>
+                <Icon class="action" icon="trash-can" @click.stop="$emit('action', 'remove-object', props.object)" v-if="!props.noDelete"></Icon>
+                <Icon class="action" icon="arrow-up-bold" v-if="!props.noOrder"></Icon>
+                <Icon class="action" icon="arrow-down-bold" v-if="!props.noOrder"></Icon>
                 <Icon class="action" icon="plus-thick" title="Add Node" @click.stop="$emit('action', 'add-node', props.object)"></Icon>
             </div>
         </div>
@@ -58,15 +70,19 @@
             @apply flex items-center;
 
             .action {
-                @apply p-2 text-gray-400 hover:text-white;
+                @apply cursor-pointer p-2 text-gray-400 hover:text-white;
             }
         }
 
         .details {
-            @apply border-r border-r-gray-400 cursor-pointer flex items-baseline px-2 py-1 hover:bg-gray-600;
+            @apply border-r border-r-gray-400 flex items-baseline px-2 py-1;
 
             &.active {
                 @apply bg-gray-600 ring-4 ring-sky-400 ring-inset;
+            }
+
+            &.hover {
+                @apply cursor-pointer hover:bg-gray-600;
             }
         }
 

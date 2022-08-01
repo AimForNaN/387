@@ -1,6 +1,9 @@
 <script setup>
     import { computed, customRef } from 'vue';
+    import Audio from './../lib/Audio.js';
     import Node from './../lib/Node.js';
+
+    import Button from './Button.vue';
 
     const props = defineProps({
         object: null,
@@ -33,6 +36,9 @@
             },
         };
     });
+    const isAudioSource = computed(() => {
+        return props.object instanceof Audio;
+    });
     const isDivElement = computed(() => {
         return props.object instanceof HTMLDivElement;
     });
@@ -64,7 +70,7 @@
 </script>
 
 <template>
-    <div id="properties" :class="{ html: isHtmlElement, node: isNode }" v-if="object">
+    <div id="properties" :class="{ html: isAudioSource || isHtmlElement, node: !isAudioSource && isNode }" v-if="object">
         <template v-if="isHtmlElement">
             <header>{{name}}</header>
             <label>
@@ -99,6 +105,10 @@
                 <span>Top</span>
                 <input type="text" v-model="object.style.top">
             </label>
+            <label>
+                <span>Transform</span>
+                <input type="text" v-model="object.style.transform">
+            </label>
             <label v-if="isDivElement">
                 <span>Padding</span>
                 <input type="text" v-model="object.style.padding">
@@ -122,12 +132,15 @@
                 </label>
             </template>
         </template>
+        <template v-else-if="isAudioSource">
+            <header>Audio</header>
+            <label>
+                <span>Offset</span>
+                <input type="number" v-model="object.offset">
+            </label>
+        </template>
         <template v-else-if="isNode">
             <header>Node</header>
-            <!-- <label v-for="(v,k) in object" v-if="getInputType(object[k])">
-                <span>{{k}}</span>
-                <input :type="getInputType(object[k])" v-model="object[k]">
-            </label> -->
             <label>
                 <span>JSON</span>
                 <textarea :value="JSON.stringify(object, null, 4)" @change="updateNode(object, $event.target.value)"></textarea>

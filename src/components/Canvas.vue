@@ -40,6 +40,8 @@
             <input type="number" step="100" v-model="state.Width">
             <span>Height:</span>
             <input type="number" step="100" v-model="state.Height">
+            <span class="flex-1"></span>
+            <button class="toolbar-item base">Export</button>
         </div>
         <div class="wrapper">
             <iframe src="/inject.html" :height="state.Height" :width="state.Width" sandbox="allow-same-origin allow-scripts" ref="frame"></iframe>
@@ -56,7 +58,7 @@
         }
 
         .toolbar {
-            @apply bg-gray-700 flex items-center p-2 space-x-2 text-white;
+            @apply bg-gray-700 flex items-center px-3 py-2 space-x-3 text-white;
         }
 
         .wrapper {

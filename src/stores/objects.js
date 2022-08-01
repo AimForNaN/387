@@ -6,6 +6,7 @@ import {
 import anime from 'animejs/lib/anime.es.js';
 import { v4 as uuidv4 } from 'uuid';
 
+import Audio from './../lib/Audio.js';
 import Node from './../lib/Node.js';
 
 export const useObjectStore = defineStore({
@@ -13,7 +14,7 @@ export const useObjectStore = defineStore({
 	state: () => ({
 		ActiveObject: null,
 		Objects: new Map(),
-		Nodes: new Map(),
+		Nodes: new Map([['Audio', []]]),
 	}),
 	actions: {
 		addImage() {
@@ -39,10 +40,18 @@ export const useObjectStore = defineStore({
 				Nodes.set(obj.id, []);
 			}
 			var arr = Nodes.get(obj.id);
-			arr.push(new Node({
-				duration: 1000,
-				offset: Timeline.duration,
-			}));
+			if (obj instanceof Audio) {
+				arr.push(new Audio({
+					duration: 1000,
+					offset: Timeline.duration,
+					src: document.createElement('audio'),
+				}));
+			} else if (obj instanceof HTMLElement) {
+				arr.push(new Node({
+					duration: 1000,
+					offset: Timeline.duration,
+				}));
+			}
 		},
 		addRect() {
 			var {uuid} = this;
@@ -104,16 +113,18 @@ export const useObjectStore = defineStore({
 				easing: 'linear',
 			});
 			Array.from(state.Nodes.entries()).forEach(([target, nodes]) => {
-				nodes.forEach((params) => {
+				nodes.forEach((node) => {
 					var {
 						offset,
 						...other
-					} = unref(params);
+					} = unref(node);
 					var targets = state.Objects.get(target);
-					t.add({
-						targets,
-						...other,
-					}, offset);
+					if (!(targets instanceof Audio)) {
+						t.add({
+							targets,
+							...other,
+						}, offset);
+					}
 				});
 			});
 			return t;
