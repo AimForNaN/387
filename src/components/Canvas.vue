@@ -36,12 +36,17 @@
 <template>
     <div id="canvas">
         <div class="toolbar">
-            <span>Width:</span>
-            <input type="number" step="100" v-model="state.Width">
-            <span>Height:</span>
-            <input type="number" step="100" v-model="state.Height">
+            <label>
+                <span>Width:</span>
+                <input type="number" step="100" v-model="state.Width">
+            </label>
+            <label>
+                <span>Height:</span>
+                <input type="number" step="100" v-model="state.Height">
+            </label>
             <span class="flex-1"></span>
-            <button class="toolbar-item base">Export</button>
+            <button class="toolbar-item">Preview</button>
+            <button class="toolbar-item">Export</button>
         </div>
         <div class="wrapper">
             <iframe src="/inject.html" :height="state.Height" :width="state.Width" sandbox="allow-same-origin allow-scripts" ref="frame"></iframe>
@@ -58,7 +63,15 @@
         }
 
         .toolbar {
-            @apply bg-gray-700 flex items-center px-3 py-2 space-x-3 text-white;
+            @apply bg-gray-700 flex items-center px-3 py-2 space-x-4 text-white;
+
+            button {
+                @apply text-opacity-70 text-white transition-colors hover:text-opacity-100;
+            }
+
+            label {
+                @apply flex items-center space-x-3;
+            }
         }
 
         .wrapper {

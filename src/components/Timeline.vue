@@ -20,7 +20,9 @@
     });
 
     watch(() => state.Playing, (v) => {
-        !v && state.Timeline.seek(0);
+        if (!v) {
+            state.Timeline.seek(0);
+        }
     });
 
     function next() {
@@ -49,10 +51,11 @@
     function play() {
         state.Timeline = objects.Timeline;
         state.Timeline.update = update;
+        state.Timeline.complete = () => {
+            console.log('finished');
+        };
         state.Timeline.play();
         state.Playing = true;
-    }
-    function playAudio(t) {
     }
     function prev() {
         state.Position = Math.max(0, state.Position - 1);
@@ -62,7 +65,7 @@
         state.Playing = false;
     }
     function update(t) {
-        playAudio(t.currentTime);
+        // playAudio(t.currentTime);
         state.Duration = ~~t.duration;
         state.Position = ~~t.progress;
         if (t.progress == 100) {

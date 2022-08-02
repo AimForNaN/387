@@ -13,7 +13,7 @@ button {
 }
 
 .button {
-    @apply bg-white border border-solid border-gray-300 font-roboto px-4 py-2 rounded text-left transition lg:w-56 hover:shadow;
+    @apply bg-white border border-solid border-gray-300 font-roboto px-4 py-2 rounded text-left transition hover:shadow;
 }
 
 input, textarea {

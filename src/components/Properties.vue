@@ -135,6 +135,13 @@
         <template v-else-if="isAudioSource">
             <header>Audio</header>
             <label>
+                <span>Source</span>
+                <div class="flex items-center">
+                    <span class="flex-1">{{object.src}}</span>
+                    <Button class="button">...</Button>
+                </div>
+            </label>
+            <label>
                 <span>Offset</span>
                 <input type="number" v-model="object.offset">
             </label>

@@ -24,16 +24,16 @@
     #panel {
         @apply bg-white flex flex-col overflow-y-auto p-8 space-y-8;
 
-        button {
-            @apply w-full;
-        }
-
         > header {
             @apply font-serif italic text-center text-3xl text-gray-700;
         }
 
         .tools {
             @apply space-y-2;
+
+            button {
+                @apply w-full;
+            }
         }
     }
 </style>
