@@ -48,12 +48,13 @@
             }
         }
     }
+    function completed() {
+        state.Playing = false;
+    }
     function play() {
         state.Timeline = objects.Timeline;
+        state.Timeline.complete = completed;
         state.Timeline.update = update;
-        state.Timeline.complete = () => {
-            console.log('finished');
-        };
         state.Timeline.play();
         state.Playing = true;
     }
@@ -66,11 +67,9 @@
     }
     function update(t) {
         // playAudio(t.currentTime);
+        // playAudio(t.progress);
         state.Duration = ~~t.duration;
         state.Position = ~~t.progress;
-        if (t.progress == 100) {
-            state.Playing = false;
-        }
     }
 </script>
 
