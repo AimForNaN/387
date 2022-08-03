@@ -120,12 +120,6 @@ export const useObjectStore = defineStore({
 					} = unref(node);
 					var targets = state.Objects.get(target);
 					if (targets instanceof Audio) {
-						other['changeBegin'] = function (t) {
-							console.log(t);
-						};
-						other['begin'] = function (t) {
-							console.log(t);
-						};
 						t.add({
 							targets,
 							...other,
